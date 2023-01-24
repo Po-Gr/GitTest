@@ -2,18 +2,41 @@ package ru.consist.models;
 
 import java.util.UUID;
 
+/**
+ * Доменная модель посылки - центральная сущность программы;
+ * Класс для создания в системе почтовых посылок, хранящих в себе данные об отправителе и получателе, об адресах отправителя и получателя и статусе посылки
+ */
+
 public class Parcel {
 
+    /**
+     * Уникальный идентификатор посылки - присваивается в конструкторе при создании новой посылки в системе
+     */
     protected UUID parcelNumber;
 
+    /**
+     * Для хранения информации об отправителе посылки
+     */
     protected Person sender;
 
+    /**
+     * Для хранения информации об адресе отправителя посылки
+     */
     protected Address sendingAddress;
 
+    /**
+     * Для хранения информации об получателя посылки
+     */
     protected Person recipient;
 
+    /**
+     * Для хранения информации об адреса получателя посылки
+     */
     protected Address destinationAddress;
 
+    /**
+     * Для хранения информации о статусе посылки
+     */
     protected ParcelStatus status;
 
     public Parcel(Person sender, Address sendingAddress, Person recipient, Address destinationAddress) {
@@ -43,6 +66,19 @@ public class Parcel {
         this.status = new ParcelStatus(1, "accepted_for_transportation");
     }
 
+    public Parcel(UUID parcelNumber, Person sender, Address sendingAddress, Person recipient, Address destinationAddress) {
+        this.parcelNumber = parcelNumber;
+        this.sender = sender;
+        this.sendingAddress = sendingAddress;
+        this.recipient = recipient;
+        this.destinationAddress = destinationAddress;
+        this.status = new ParcelStatus(1, "accepted_for_transportation");
+    }
+
+
+    /**
+     * Методы изменения статуса посылки
+     */
     public void inTransit() {
         this.status = new ParcelStatus(2, "in_transit");
     }
